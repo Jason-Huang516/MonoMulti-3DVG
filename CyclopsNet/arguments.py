@@ -6,7 +6,7 @@ def get_argument_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', default='./data',
                         help='path to datasets')
-    parser.add_argument('--dataset', default='rope3d',
+    parser.add_argument('--dataset', default='mm-rope',
                         help='dataset')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to latest checkpoint (default: none)')

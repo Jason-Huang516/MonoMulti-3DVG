@@ -77,7 +77,6 @@ class MultiModalDataset(data.Dataset):
             self.objects_numbers.append(count)
         self.accumulated_list = list(itertools.accumulate(self.objects_numbers))
         flattened_dependencies = list(itertools.chain.from_iterable(self.dependecys_list))
-        # 行代表目标索引,列代表query索引
         for i, item in enumerate(flattened_dependencies):
             if item == '1':
                 self.positive_indexs.append([i // 3, get_text_indices(self.accumulated_list, i // 3)[i % 3]])
@@ -98,17 +97,7 @@ class MultiModalDataset(data.Dataset):
         return self.length
 
 def collate_fn(data):
-    """Build mini-batch tensors from a list of (image, caption) tuples.
-    Args:
-        data: list of (image, caption) tuple.
-            - image: torch tensor of shape (3, 256, 256).
-            - caption: torch tensor of shape (?); variable length.
-
-    Returns:
-        images: torch tensor of shape (batch_size, 3, 256, 256).
-        targets: torch tensor of shape (batch_size, padded_length).
-        lengths: list; valid length for each padded caption.
-    """
+   
     pos_samples, neg_samples = zip(*data)
     pos_images, pos_states, pos_queries, pos_labels = zip(*pos_samples)
     neg_images, neg_states, neg_queries, neg_labels = zip(*neg_samples)
@@ -127,19 +116,6 @@ def collate_fn(data):
 
     return images, states, queries, labels
 
-
-# def get_loaders(data_path, data_name, batch_size, workers):
-#     dpath = os.path.join(data_path, data_name)
-#     train_loader = get_loader(dpath, 'train',  batch_size, True, workers)
-#     val_loader = get_loader(dpath, 'dev',  batch_size, False, workers)
-#     return train_loader, val_loader
-
-
-# def get_test_loader(split_name, data_name,  batch_size, workers, opt):
-#     dpath = os.path.join(opt.data_path, data_name)
-#     test_loader = get_loader(dpath, split_name, batch_size, False, workers)
-#     return test_loader
-
 def get_loader(data_path, dataset_path, split_name, batch_size=64, shuffle=True, num_workers=8):
     dataset = MultiModalDataset(data_path, dataset_path, split_name)
     data_loader = torch.utils.data.DataLoader(dataset=dataset,
@@ -150,18 +126,4 @@ def get_loader(data_path, dataset_path, split_name, batch_size=64, shuffle=True,
                                               num_workers=num_workers,
                                               drop_last=True)
     return data_loader
-
-if __name__ == "__main__":
-    dataset = MultiModalDataset("./data", 'rope3d', "train")
-    data_loader = torch.utils.data.DataLoader(dataset=dataset,
-                                              batch_size=64,
-                                              shuffle=True,
-                                              pin_memory=True,
-                                              collate_fn=collate_fn,
-                                              num_workers=8)
-    for i, (images, states, queries, labels) in enumerate(data_loader):
-        images = images        
-        states = states         
-        queries = queries                          
-        labels = labels
     

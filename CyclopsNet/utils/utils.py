@@ -27,17 +27,6 @@ def get_center(box2d):
     return center_x, center_y
 
 def split_text_by_word(text):
-    """
-    将文本按单词和数字分块，保留整个单词（包括内部的引号等符号），
-    例如将 "I’m 1.5m." 分块为 ["I’m", "1.5m"]。
-
-    Args:
-        text (str): 要分块的文本。
-
-    Returns:
-        list: 文本块列表。
-    """
-    # 使用正则表达式匹配单词或数字，保留引号等符号
     words = re.findall(r"[a-zA-Z0-9'’]+(?:\.\d+)?", text)
     return words
 
@@ -47,14 +36,6 @@ def img_place(cell_index):
 
 
 def get_text_indices(cumulative_list, target_index):
-    """
-    使用二分搜索查找 target_index 所在的区间，并返回对应的三个文本描述索引。
-
-    :param cumulative_list: 累加列表，假设为递增的整数列表。
-    :param target_index: 目标索引。
-    :return: 包含三个文本描述索引的列表，或 None（如果 target_index 超出范围）。
-    """
-    # 使用 bisect_right 找到第一个大于 target_index 的位置
     i = bisect.bisect_right(cumulative_list, target_index)
     
     if i < len(cumulative_list):
@@ -65,34 +46,28 @@ def get_text_indices(cumulative_list, target_index):
 
 def get_3d_box_corners(box):
     x, y, z, h, w, l, rotation_y = box
-    # 计算旋转矩阵
     cos_r = np.cos(rotation_y)
     sin_r = np.sin(rotation_y)
     R = np.array([[cos_r, 0, sin_r],
                   [0, 1, 0],
                   [-sin_r, 0, cos_r]])
 
-    # 计算初始8个顶点（未旋转）
     x_corners = l / 2 * np.array([1, 1, -1, -1, 1, 1, -1, -1])
     y_corners = h / 2 * np.array([1, -1, -1, 1, 1, -1, -1, 1])
     z_corners = w / 2 * np.array([1, 1, 1, 1, -1, -1, -1, -1])
 
-    # 合并为顶点矩阵
     corners = np.vstack((x_corners, y_corners, z_corners))
-
-    # 旋转并平移到目标位置
     corners_3d = np.dot(R, corners)
     corners_3d[0, :] += x
     corners_3d[1, :] += y
     corners_3d[2, :] += z
 
-    return corners_3d.T  # 返回形状为 (8, 3) 的顶点坐标
+    return corners_3d.T  
 
 def compute_3d_iou(pred_box, gt_box):
     pred_corners = get_3d_box_corners(pred_box)
     gt_corners = get_3d_box_corners(gt_box)
 
-    # 使用 ConvexHull 求交集和并集
     try:
         pred_hull = ConvexHull(pred_corners)
         gt_hull = ConvexHull(gt_corners)
@@ -106,7 +81,6 @@ def compute_3d_iou(pred_box, gt_box):
 
         iou = intersection_volume / union_volume
     except:
-        # 如果ConvexHull计算失败（例如点共线或共面），则设置IoU为0
         iou = 0.0
 
     return iou
@@ -116,7 +90,6 @@ def compute_f1_score(pred_boxes, gt_boxes, iou_threshold=0.5):
     matched_gt = set()
     matched_pred = set()
 
-    # 计算TP和FP
     for pred_idx, pred_box in enumerate(pred_boxes):
         matched = False
         for gt_idx, gt_box in enumerate(gt_boxes):
@@ -130,12 +103,10 @@ def compute_f1_score(pred_boxes, gt_boxes, iou_threshold=0.5):
         if not matched:
             fp += 1
 
-    # 计算FN
     for gt_idx in range(len(gt_boxes)):
         if gt_idx not in matched_gt:
             fn += 1
 
-    # 计算Precision, Recall, F1 Score
     precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
     recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
     f1_score = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0

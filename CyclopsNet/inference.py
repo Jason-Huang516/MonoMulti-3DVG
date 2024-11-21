@@ -1,11 +1,8 @@
 import math
 import torch
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '1'
-from model import MMOD
-import torch.nn.functional as F
-import random
-import numpy as np
+from model import CyclopsNet
+
 from PIL import Image
 import json as jsonmod
 from torchvision import transforms
@@ -28,7 +25,7 @@ def process_nested_list(nested_list):
     return processed_lists
 
 def load_model(weights_path, parser, device):
-    model = MMOD(parser).to(device)
+    model = CyclopsNet(parser).to(device)
     checkpoint = torch.load(weights_path, map_location=parser.device)
     epoch = checkpoint['epoch']
     epoch_loss = checkpoint['epoch_loss']

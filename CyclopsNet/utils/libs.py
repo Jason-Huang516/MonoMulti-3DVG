@@ -289,7 +289,7 @@ class Img_State_Fusion(nn.Module):
         self.fusion = KAN([dim, dim])
 
     def forward(self, image_features, state_embeddings):
-        # 融合image和state特征
+        # Fusion image and state
         combined_features = image_features + state_embeddings.unsqueeze(1).repeat(1, image_features.size(1), 1)
         fused_features = self.fusion(combined_features)
         return fused_features  

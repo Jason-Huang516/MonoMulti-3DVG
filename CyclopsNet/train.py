@@ -1,12 +1,11 @@
 import os
-os.environ['CUDA_VISIBLE_DEVICES'] = '3'
 import torch
 from tqdm import tqdm
-from model import MMOD
+from model import CyclopsNet
 import sys
 import arguments
 from torch.nn.utils.clip_grad import clip_grad_norm_
-from loss_factory import MMODLoss  
+from loss_factory import CyclopsNetLoss  
 from utils.datasetprocessor import *
 from utils.utils import lr_lambda
 import functools
@@ -18,9 +17,9 @@ def main():
     num_epochs = parser.num_epochs
     train_loader = get_loader(parser.data_path, parser.dataset, "train", parser.batch_size, True, 8)
     print("****************Load data completed!!******************")
-    model = MMOD(parser).to(parser.device)
+    model = CyclopsNet(parser).to(parser.device)
     print("****************Load model completed!!******************")
-    criterion = MMODLoss(parser).to(parser.device)
+    criterion = CyclopsNetLoss(parser).to(parser.device)
     params_to_update = list(filter(lambda p: p.requires_grad, model.parameters()))
     optimizer = torch.optim.AdamW(
                                 params_to_update,

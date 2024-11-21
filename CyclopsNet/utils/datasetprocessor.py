@@ -80,12 +80,6 @@ class MultiModalDataset(data.Dataset):
                                  std=[0.229, 0.224, 0.225])
         ])
 
-        # self.transform = transforms.Compose([
-        #     transforms.ToTensor(), 
-        #     transforms.Normalize(mean=[0.485, 0.456, 0.406],
-        #                          std=[0.229, 0.224, 0.225])
-        # ])
-
         self.objects_list = []
         self.state_list = []
         self.querys_list = []
@@ -163,17 +157,6 @@ class MultiModalDataset(data.Dataset):
         return self.length
 
 def collate_fn(data):
-    """Build mini-batch tensors from a list of (image, caption) tuples.
-    Args:
-        data: list of (image, caption) tuple.
-            - image: torch tensor of shape (3, 256, 256).
-            - caption: torch tensor of shape (?); variable length.
-
-    Returns:
-        images: torch tensor of shape (batch_size, 3, 256, 256).
-        targets: torch tensor of shape (batch_size, padded_length).
-        lengths: list; valid length for each padded caption.
-    """
     pos_samples, neg_samples = zip(*data)
     pos_images, pos_states, pos_queries, pos_labels = zip(*pos_samples)
     neg_images, neg_states, neg_queries, neg_labels = zip(*neg_samples)
@@ -202,18 +185,4 @@ def get_loader(data_path, dataset_path, split_name, batch_size=64, shuffle=True,
                                               num_workers=num_workers,
                                               drop_last=True)
     return data_loader
-
-if __name__ == "__main__":
-    dataset = MultiModalDataset("./data", 'rope3d', "train")
-    data_loader = torch.utils.data.DataLoader(dataset=dataset,
-                                              batch_size=64,
-                                              shuffle=True,
-                                              pin_memory=True,
-                                              collate_fn=collate_fn,
-                                              num_workers=8)
-    for i, (images, states, queries, labels) in enumerate(data_loader):
-        images = images        
-        states = states         
-        queries = queries                          
-        labels = labels
     

@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.distributions import kl_divergence
 
 
@@ -9,10 +8,10 @@ def cosine_sim(s, im):
     """
     return s.mm(im.t())
 
-class MMODLoss(nn.Module):
+class CyclopsNetLoss(nn.Module):
 
     def __init__(self, parser):
-        super(MMODLoss, self).__init__()
+        super(CyclopsNetLoss, self).__init__()
         self.parser = parser
         self.itc_loss = ContrastiveLoss(margin=parser.margin)
         self.kl_loss = MMKLLoss()

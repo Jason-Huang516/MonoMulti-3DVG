@@ -10,10 +10,10 @@ from torch.distributions import Normal
 from utils.libs import *
 
 
-class MMOD(nn.Module):
+class CyclopsNet(nn.Module):
 
     def __init__(self, parser):
-        super(MMOD, self).__init__()
+        super(CyclopsNet, self).__init__()
         self.parser = parser
         self.grad_clip = parser.grad_clip
         self.roberta_tokenizer = AutoTokenizer.from_pretrained('roberta-base')
