@@ -3,7 +3,7 @@
     <img src="https://i.imgur.com/waxVImv.png" alt="Oryx Video-ChatGPT">
 </p>
 
-This is the official repository for paper **"Beyond Human Perception: Understanding Multi-Object World from Monocular View"**
+### This is the official repository for paper **"Beyond Human Perception: Understanding Multi-Object World from Monocular View"**
 
 <div align="center">
   <img src="images/vs1.gif"/>
