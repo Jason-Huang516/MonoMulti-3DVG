@@ -23,7 +23,7 @@ https://drive.google.com/drive/folders/1ICBv0SRbRIUnl_z8DVuH8lz7KQt580EI?usp=dri
 
 CyclopsNet is the **First RGB-based Multi-object 3D Visual Grounding Network** for monocular view. 
 <div align="center">
-  <img src="images/framework.png"/>
+  <img src="images/framework.jpg"/>
 </div>
 
 ## 👁️ Visualization
