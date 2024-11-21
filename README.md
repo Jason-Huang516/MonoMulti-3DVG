@@ -5,10 +5,10 @@
 
 This is the official repository for paper **"Beyond Human Perception: Understanding Multi-Object World from Monocular View"**
 
-<div style="text-align: center;">
-  ![演示动画1](./images/vs1.gif)
-  ![演示动画2](./images/vs2.gif)
-  ![演示动画3](./images/vs3.gif)
+<div align="center">
+  <img src="images/vs1.gif"/>
+  <img src="images/vs2.gif"/>
+  <img src="images/vs3.gif"/>
 </div>
 
 ## <img src="images/data_logo.png" height="20"> Dataset
