@@ -3,18 +3,18 @@
     <img src="https://i.imgur.com/waxVImv.png" alt="Oryx Video-ChatGPT">
 </p>
 
-### This is the official repository for paper **"Beyond Human Perception: Understanding Multi-Object World from Monocular View"**
+### This is the official repository for CVPR2025 paper **"Beyond Human Perception: Understanding Multi-Object World from Monocular View"**
 
 <div align="center">
   <img src="images/vs1.gif"/>
   <img src="images/vs2.gif"/>
-  <img src="images/vs3.gif"/>
 </div>
 
 ## <img src="images/data_logo.png" height="20"> Dataset
-Download our MonoMulti-ROPE dataset. We build the first dataset for MonoMulti-3DVG, termed MonoMulti-ROPE, which can be downloaded from our [Google Drive](https://drive.google.com/file/d/1Qo2uUNZxo-QaniDtL6doT2V3Yaf23QP8/view?usp=drive_link). The download link is available below:
+We build the first dataset for MonoMulti-3DVG, termed MonoMulti-ROPE. If you want to download our MonoMulti-ROPE dataset, please contact the email below:
+
 ```
-https://drive.google.com/file/d/1Qo2uUNZxo-QaniDtL6doT2V3Yaf23QP8/view?usp=drive_link
+keyuguo@chd.edu.cn
 ```
 
 <div align="center">
@@ -49,42 +49,6 @@ CyclopsNet is the **First RGB-based Multi-object 3D Visual Grounding Network** f
 </div>
 
 <br>
-
-<div align="center">
-  <img src="images/vs4.png"/>
-</div>
-
-<br>
-
-<div align="center">
-  <img src="images/vs5.png"/>
-</div>
-
-<br>
-
-<div align="center">
-  <img src="images/vs6.png"/>
-</div>
-
-<br>
-
-<div align="center">
-  <img src="images/vs7.png"/>
-</div>
-
-<br>
-
-<div align="center">
-  <img src="images/vs8.png"/>
-</div>
-
-<br>
-
-## <img src="images/result_logo.png" height="20"> Results
-
-<div align="center">
-  <img src="images/result.png"/>
-</div>
 
 
 ### A detailed README and checkpoints will be released later.
