@@ -11,10 +11,9 @@
 </div>
 
 ## <img src="images/data_logo.png" height="20"> Dataset
-We build the first dataset for MonoMulti-3DVG, termed MonoMulti-ROPE. If you want to download our MonoMulti-ROPE dataset, please contact the email below:
-
+We build the first dataset for MonoMulti-3DVG, termed MonoMulti-ROPE. If you want to obtain our MonoMulti-ROPE dataset, please contact the email below:
 ```
-keyuguo@chd.edu.cn
+corcorancarter653@gmail.com
 ```
 
 <div align="center">
