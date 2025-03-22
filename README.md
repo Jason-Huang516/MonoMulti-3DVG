@@ -50,4 +50,4 @@ CyclopsNet is the **First RGB-based Multi-object 3D Visual Grounding Network** f
 <br>
 
 
-### A detailed README and checkpoints will be released later.
+### A detailed README and checkpoints will be released soon.
